@@ -1,0 +1,6 @@
+@TicTacToe.WebApi_HostAddress = http://localhost:5058
+
+GET {{TicTacToe.WebApi_HostAddress}}/boards/
+Accept: application/json
+
+###
