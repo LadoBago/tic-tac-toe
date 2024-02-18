@@ -1,11 +1,9 @@
-namespace TicTacToe.WebApi.Models.Games;
+namespace TicTacToe.Application.Models;
 
-public class MoveDTO
+public class Move
 {
     public string MoveId { get;set; } = string.Empty;
     public string PlayerName { get; set; } = string.Empty;
     public short SquareIndex { get; set; }
-    public char Xor0 { get; set; }
-
-    public static MoveDTO Empty => new ();
+    public char Xor0 { get; set; }    
 }

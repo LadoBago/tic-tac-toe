@@ -1,7 +1,9 @@
+using TicTacToe.Application.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Game).Assembly));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
