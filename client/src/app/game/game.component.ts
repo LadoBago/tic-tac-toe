@@ -9,5 +9,9 @@ import { BoardComponent } from '../board/board.component';
   styleUrl: './game.component.css'
 })
 export class GameComponent {
+  public boardSize : number;
 
+  constructor() {
+    this.boardSize = 5;  
+  }
 }
