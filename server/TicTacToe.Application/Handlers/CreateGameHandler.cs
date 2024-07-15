@@ -1,6 +1,6 @@
 using MediatR;
 using TicTacToe.Application.Commands;
-using TicTacToe.Application.Models;
+using TicTacToe.Domain.Models;
 
 namespace TicTacToe.Application.Handlers;
 

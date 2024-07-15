@@ -1,5 +1,5 @@
 using MediatR;
-using TicTacToe.Application.Models;
+using TicTacToe.Domain.Models;
 using TicTacToe.Application.Queries;
 
 namespace TicTacToe.Application.Handlers;
