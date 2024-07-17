@@ -1,24 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SquareComponent } from '../square/square.component';
 import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [SquareComponent, NgFor, NgClass],
+  imports: [NgFor, NgClass],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css'
 })
 export class BoardComponent implements OnInit {
-  @Input() size : number;
+  @Input() size! : number;
 
-  public position : (boolean | undefined)[];
+  public position! : (boolean | undefined)[];
   private nextMove : boolean;
+  private boardIndexes! : number[];
 
   constructor() { 
-    this.size = 3;
     this.nextMove = true;
-    this.position = Array<boolean | undefined>(this.size * this.size).fill(undefined);
   }
 
   public getNextMove() : boolean {
@@ -27,10 +25,12 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.position = Array<boolean | undefined>(this.size * this.size).fill(undefined);
+    this.boardIndexes = [...Array(this.size)].map((_, inx) => inx);
   }
 
   public getBoardIndexes() {
-    return [...Array(this.size)].map((_, inx) => inx);
+    console.log(this.size)
+    return this.boardIndexes;
   }
 
   public makeMove(row: number, col: number){

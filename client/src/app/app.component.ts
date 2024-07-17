@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, GameComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, GameComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,5 +1,21 @@
 <div class="board">
     <div id="board-row-{{i}}" class="board-row" *ngFor="let i of this.getBoardIndexes(); let isFirstRow=first; let isLastRow=last;">
-        <app-square [parent]="this" [value]=position[i*this.size+j] [row]=i [col]=j [isFirstRow]=isFirstRow [isLastRow]=isLastRow [isFirstCol]=isFirstCol [isLastCol]=isLastCol *ngFor="let j of this.getBoardIndexes(); let isFirstCol=first; let isLastCol=last" />
-    </div>
+        <div class="square"
+        [class.first-row]="isFirstRow"
+        [class.last-row]="isLastRow"
+        [class.first-col]="isFirstCol"
+        [class.last-col]="isLastCol"
+        [class.not-first-row]="!isFirstRow"
+        [class.not-last-row]="!isLastRow"
+        [class.not-first-col]="!isFirstCol"
+        [class.not-last-col]="!isLastCol"
+        [class.value-x]="this.position[i * this.size + j]"
+        [class.value-0]="this.position[i * this.size + j] === false"
+        [class.value]="this.position[i * this.size + j] != undefined"
+        [class.not-value]="this.position[i * this.size + j] == undefined"
+        id="square-{{i}}-{{j}}"
+        (click)="this.makeMove(i, j)"
+        *ngFor="let j of this.getBoardIndexes(); let isFirstCol=first; let isLastCol=last"
+    >{{i}}-{{j}}</div>        
+    </div>    
 </div>
