@@ -1,5 +1,8 @@
 <div class="game">
     <p>game works!</p>
 
-    <app-board [size]=boardSize/>
+    <app-board [size]=this.game.BoardSize/>
+    <section>
+        <button (click)="onFinish()">Finish</button>
+    </section>
 </div>

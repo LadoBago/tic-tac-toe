@@ -29,7 +29,6 @@ export class BoardComponent implements OnInit {
   }
 
   public getBoardIndexes() {
-    console.log(this.size)
     return this.boardIndexes;
   }
 
