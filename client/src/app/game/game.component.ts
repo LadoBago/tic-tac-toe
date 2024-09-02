@@ -11,7 +11,7 @@ import { Game } from './game.model';
 })
 export class GameComponent {
 
-  @Input() public game! : Game;
+  @Input() public game!: Game;
   @Output() public finish: EventEmitter<void>;
 
   constructor() {

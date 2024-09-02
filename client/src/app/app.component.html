@@ -1,30 +1,12 @@
 <main class="main">
   <div class="content">
-    <nav>
-      <ul>
-        @if (!this.gameSelected.IsStarted) {
-          @for (boardSize of getBoardSizeOptions(); track $index) {
-            <li><button (click)="selectBoardSize(boardSize)" [class.aria-pressed]="boardSize === this.gameSelected.BoardSize">Board Size {{boardSize}}x{{boardSize}}</button></li>
-          }  
-        }
-      </ul>
-    </nav>
-    <nav>
-      <ul>
-        @if (!this.gameSelected.IsStarted) {
-          @for (timeControl of getTimeControlOptions(); track $index) {
-            <li><button (click)="selectTimeControl(timeControl)" [class.aria-pressed]="timeControl === this.gameSelected.TimeControl">Time control {{timeControl}} minutes</button></li>
-          }  
-        }
-      </ul>
-    </nav> 
-    <button (click)="startNewGame()">Start New Game</button>  
-  </div>
-
-  @if (this.gameSelected.IsStarted)
-  {
-    <app-game [game]="this.gameSelected" (finish)="onGameFinish()" />
+  @if (!this.CurrentGame()) {
+    <app-game-starter (startNewGame)="onStartNewGame($event)"/>
   }
+  @else  {
+    <app-game [game]="this.CurrentGame()!" (finish)="onGameFinish()" />
+  }
+  </div>
 </main>
 
 <router-outlet />

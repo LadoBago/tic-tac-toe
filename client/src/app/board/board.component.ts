@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [NgFor, NgClass],
+  imports: [],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css'
 })

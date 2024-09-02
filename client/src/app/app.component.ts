@@ -1,49 +1,34 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, Signal, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { GameComponent } from './game/game.component';
-import { boardSizeOptions, Game, timeControlOptions } from './game/game.model';
-
+import { Game } from './game/game.model';
+import { GameStarterComponent } from "./game-starter/game-starter.component";
+import { GameStarterModel } from './game-starter/game-starter.model';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, GameComponent],
+  imports: [RouterOutlet, GameComponent, GameStarterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'tictactoe';
-  gameSelected: Game;
+  private currentGame = signal<Game | undefined>(undefined);
+
+  get CurrentGame(): Signal<Game | undefined> {
+    return this.currentGame;
+  }
 
   constructor() {
-    this.gameSelected = new Game();
   }
 
-  getBoardSizeOptions() : number[]{
-    return boardSizeOptions;
-  }
-
-  getTimeControlOptions() : number[]{
-    return timeControlOptions;
-  }
-  selectBoardSize(boardSize: number) {
-    this.gameSelected.BoardSize = boardSize;
-    console.log ('Select boardSize ' + boardSize);
-    console.log(this.gameSelected);
-  }
-  selectTimeControl(timeControl: number) {
-    this.gameSelected.TimeControl = timeControl;
-    console.log ('Select timeControl ' + timeControl);
-    console.log(this.gameSelected);
-  }
-  startNewGame() {
-    this.gameSelected.Start();
-    console.log ('Start new game');
-    console.log(this.gameSelected);
-  }
   onGameFinish() {
-    this.gameSelected = new Game();
+    this.currentGame.set(undefined);
     console.log ('Finish game.');
+  }
+  onStartNewGame($event: GameStarterModel) {
+    this.currentGame.set(new Game($event));
   }
 }

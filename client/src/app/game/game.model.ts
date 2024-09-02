@@ -1,16 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-
-export const boardSizeOptions=[3,5];
-export const timeControlOptions=[1,3,5];
+import { GameStarterModel } from '../game-starter/game-starter.model';
 
 export class Game {
     private boardSize: number;
     private id?: string
     private timeControl: number;
 
-    constructor(){
-        this.boardSize = boardSizeOptions[0];
-        this.timeControl = timeControlOptions[0];
+    constructor(gameStarter: GameStarterModel ){
+        this.boardSize = gameStarter.BoardSize
+        this.timeControl = gameStarter.TimeControl;
     }
 
     Start() {

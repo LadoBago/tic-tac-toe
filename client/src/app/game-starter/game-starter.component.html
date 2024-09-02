@@ -1,0 +1,17 @@
+<nav>
+    <ul>
+        @for (boardSize of getBoardSizeOptions(); track $index) {
+            <li><button (click)="selectBoardSize(boardSize)" class="btn btn-outline-dark" [class.active]="boardSize === this.GameStarter.BoardSize">Board Size {{boardSize}}x{{boardSize}}</button></li>
+        }  
+
+    </ul>
+</nav>
+<nav>
+    <ul>
+        @for (timeControl of getTimeControlOptions(); track $index) {
+        <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">Time control {{timeControl}} minutes</button></li>
+        }  
+    </ul>
+</nav>
+<button (click)="onStartNewGame()">Start New Game</button>
+ 

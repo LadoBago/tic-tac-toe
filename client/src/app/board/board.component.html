@@ -1,5 +1,7 @@
 <div class="board">
-    <div id="board-row-{{i}}" class="board-row" *ngFor="let i of this.getBoardIndexes(); let isFirstRow=first; let isLastRow=last;">
+    @for (i of this.getBoardIndexes(); track $index; let isFirstRow=$first, isLastRow=$last) {
+    <div id="board-row-{{i}}" class="board-row">
+        @for (j of this.getBoardIndexes(); track $index; let isFirstCol=$first, isLastCol=$last) {
         <div class="square"
         [class.first-row]="isFirstRow"
         [class.last-row]="isLastRow"
@@ -15,7 +17,8 @@
         [class.not-value]="this.position[i * this.size + j] == undefined"
         id="square-{{i}}-{{j}}"
         (click)="this.makeMove(i, j)"
-        *ngFor="let j of this.getBoardIndexes(); let isFirstCol=first; let isLastCol=last"
-    >{{i}}-{{j}}</div>        
-    </div>    
+        >{{i}}-{{j}}</div>
+        }      
+    </div>  
+    }  
 </div>
