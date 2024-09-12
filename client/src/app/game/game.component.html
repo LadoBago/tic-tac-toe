@@ -1,5 +1,6 @@
 <div class="game">
-    <app-board [size]=this.game.BoardSize/>
+    <app-clock [time]="this.game.TimeControl" />
+    <app-board [size]="this.game.BoardSize"/>
     <section>
         <button (click)="onFinish()">Finish</button>
     </section>

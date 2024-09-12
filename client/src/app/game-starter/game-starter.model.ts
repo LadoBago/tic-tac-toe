@@ -1,5 +1,5 @@
 export const boardSizeOptions=[3,5];
-export const timeControlOptions=[1,3,5];
+export const timeControlOptions=[60,180,300];
 
 export class GameStarterModel {
     private boardSize: number;

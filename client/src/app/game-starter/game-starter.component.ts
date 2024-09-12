@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { boardSizeOptions, timeControlOptions, GameStarterModel } from './game-starter.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-game-starter',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './game-starter.component.html',
   styleUrl: './game-starter.component.css'
 })

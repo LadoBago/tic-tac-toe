@@ -9,7 +9,7 @@
 <nav>
     <ul>
         @for (timeControl of getTimeControlOptions(); track $index) {
-        <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">Time control {{timeControl}} minutes</button></li>
+        <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">Time control {{timeControl * 1000 | date: 'mm:ss'}}</button></li>
         }  
     </ul>
 </nav>

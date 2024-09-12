@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BoardComponent } from '../board/board.component';
 import { Game } from './game.model';
+import { ClockComponent } from '../clock/clock.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [BoardComponent],
+  imports: [BoardComponent, ClockComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
