@@ -4,33 +4,3 @@ div.board {
     margin-left: 50px;
     margin-top: 50px;
 }
-
-div.board div.square {
-    border-top: 1px solid;
-    border-left: 1px solid;
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-}
-div.board div.square.last-row {
-    border-bottom: 1px solid;
-}
-div.board div.square.last-col {
-    border-right: 1px solid;
-}
-
-div.board div.square.value-x {
-    background-color: blue;
-}
-
-div.board div.square.value-0 {
-    background-color: red;
-}
-
-div.board div.square.value:hover {
-    cursor:default;
-}
-
-div.board div.square.not-value:hover {
-    cursor:pointer;
-}

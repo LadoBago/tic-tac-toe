@@ -1,0 +1,18 @@
+<div class="square"
+    [class.first-row]="isFirstRow()"
+    [class.last-row]="isLastRow()"
+    [class.first-col]="isFirstCol()"
+    [class.last-col]="isLastCol()"
+    [class.not-first-row]="!isFirstRow()"
+    [class.not-last-row]="!isLastRow()"
+    [class.not-first-col]="!isFirstCol()"
+    [class.not-last-col]="!isLastCol()"
+    [class.value-x]="isValueX()"
+    [class.value-0]="isValue0()"
+    [class.value]="hasValue()"
+    [class.not-value]="!hasValue()"
+    id="square-{{indexI()}}-{{indexJ()}}"
+    (click)="this.onClick()"
+    >
+    {{indexI()}}-{{indexJ()}}
+</div>

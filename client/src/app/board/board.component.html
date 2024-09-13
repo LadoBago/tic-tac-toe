@@ -1,24 +1,9 @@
 <div class="board">
-    @for (i of this.getBoardIndexes(); track $index; let isFirstRow=$first, isLastRow=$last) {
+    @for (i of this.getBoardIndexes(); track $index;) {
     <div id="board-row-{{i}}" class="board-row">
-        @for (j of this.getBoardIndexes(); track $index; let isFirstCol=$first, isLastCol=$last) {
-        <div class="square"
-        [class.first-row]="isFirstRow"
-        [class.last-row]="isLastRow"
-        [class.first-col]="isFirstCol"
-        [class.last-col]="isLastCol"
-        [class.not-first-row]="!isFirstRow"
-        [class.not-last-row]="!isLastRow"
-        [class.not-first-col]="!isFirstCol"
-        [class.not-last-col]="!isLastCol"
-        [class.value-x]="this.position[i * this.size + j]"
-        [class.value-0]="this.position[i * this.size + j] === false"
-        [class.value]="this.position[i * this.size + j] != undefined"
-        [class.not-value]="this.position[i * this.size + j] == undefined"
-        id="square-{{i}}-{{j}}"
-        (click)="this.makeMove(i, j)"
-        >{{i}}-{{j}}</div>
+        @for (j of this.getBoardIndexes(); track $index;) {
+        <app-square [boardSize]="size" [indexI]="i" [indexJ]="j" [value]="this.position[i * size + j]" (makeMove)="this.onMakeMove($event)" />
         }      
-    </div>  
+    </div> 
     }  
 </div>

@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SquareComponent } from "../square/square.component";
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [],
+  imports: [SquareComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.css'
 })
 export class BoardComponent implements OnInit {
-  @Input() size! : number;
+  @Input()
+  size! : number;
 
   public position! : (boolean | undefined)[];
   private nextMove : boolean;
@@ -31,11 +33,15 @@ export class BoardComponent implements OnInit {
     return this.boardIndexes;
   }
 
-  public makeMove(row: number, col: number){
-    if (this.position[row * this.size + col] != undefined)
+  public onMakeMove(data: {i: number, j: number}){
+    console.log('onMakeMove called');
+    console.log(data);
+    if (this.position[data.i * this.size + data.j] != undefined)
       return;
 
-    this.position[row * this.size + col] = this.nextMove;
+    console.log(this.position);
+
+    this.position[data.i * this.size + data.j] = this.nextMove;
     this.nextMove = !this.nextMove;
   }
 }
