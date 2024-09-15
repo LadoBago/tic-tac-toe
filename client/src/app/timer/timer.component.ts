@@ -1,19 +1,16 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { map, takeWhile, timer } from 'rxjs';
-import { AsyncPipe, DatePipe} from '@angular/common'
-import { TimerComponent } from "../timer/timer.component";
 
 @Component({
-  selector: 'app-clock',
+  selector: 'app-timer',
   standalone: true,
-  imports: [AsyncPipe, DatePipe, TimerComponent],
-  templateUrl: './clock.component.html',
-  styleUrl: './clock.component.css'
+  imports: [AsyncPipe, DatePipe],
+  templateUrl: './timer.component.html',
+  styleUrl: './timer.component.css'
 })
-export class ClockComponent {
+export class TimerComponent {
   time = input.required<number>();
-
-  
   
   remainingMilliSeconds = timer(0, 1000)
     .pipe(

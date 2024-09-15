@@ -1,3 +1,6 @@
-<div>
-    <span>{{ remainingMilliSeconds | async | date:'mm:ss'  }}</span>
+<div id="timer-x">
+    <app-timer [time]="time()" />
+</div>
+<div id="timer-0">
+    <app-timer [time]="time()" />
 </div>
