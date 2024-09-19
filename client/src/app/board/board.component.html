@@ -2,7 +2,7 @@
     @for (i of this.getBoardIndexes(); track $index;) {
     <div id="board-row-{{i}}" class="board-row">
         @for (j of this.getBoardIndexes(); track $index;) {
-        <app-square [boardSize]="size" [indexI]="i" [indexJ]="j" [value]="this.position[i * size + j]" (makeMove)="this.onMakeMove($event)" />
+        <app-square [boardSize]="size" [indexI]="i" [indexJ]="j" [value]="this.position[i * size + j]" (moveMade)="this.onMove($event)" />
         }      
     </div> 
     }  

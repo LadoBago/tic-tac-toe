@@ -1,10 +1,10 @@
 <main class="main">
   <div class="content">
-  @if (!this.CurrentGame()) {
+  @if (!this.isCreated()) {
     <app-game-starter (startNewGame)="onStartNewGame($event)"/>
   }
   @else  {
-    <app-game [game]="this.CurrentGame()!" (finish)="onGameFinish()" />
+    <app-game (finish)="onGameFinish()" />
   }
   </div>
 </main>

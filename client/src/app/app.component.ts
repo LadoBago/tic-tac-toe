@@ -4,6 +4,7 @@ import { GameComponent } from './game/game.component';
 import { Game } from './game/game.model';
 import { GameStarterComponent } from "./game-starter/game-starter.component";
 import { GameStarterModel } from './game-starter/game-starter.model';
+import { GameService } from './game/game.service';
 
 
 @Component({
@@ -15,20 +16,19 @@ import { GameStarterModel } from './game-starter/game-starter.model';
 })
 export class AppComponent {
   title = 'tictactoe';
-  private currentGame = signal<Game | undefined>(undefined);
 
-  get CurrentGame(): Signal<Game | undefined> {
-    return this.currentGame;
+  get isCreated(): Signal<boolean> {
+    return this.gameService.isCreated;
   }
 
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   onGameFinish() {
-    this.currentGame.set(undefined);
+    this.gameService.finishGame();
     console.log ('Finish game.');
   }
   onStartNewGame($event: GameStarterModel) {
-    this.currentGame.set(new Game($event));
+    this.gameService.startNewGame($event);
   }
 }

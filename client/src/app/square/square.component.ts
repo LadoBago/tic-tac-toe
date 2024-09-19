@@ -25,7 +25,7 @@ export class SquareComponent {
   hasValue = computed(() => this.value() != undefined);
 
   @Output()
-  makeMove = new EventEmitter<{i: number, j: number}>();
+  moveMade = new EventEmitter<{i: number, j: number}>();
 
   constructor() {
 
@@ -39,6 +39,6 @@ export class SquareComponent {
 
     console.log('makeMove event emitted');
 
-    this.makeMove.emit({i: this.indexI(), j: this.indexJ()});
+    this.moveMade.emit({i: this.indexI(), j: this.indexJ()});
   }
 }

@@ -1,3 +1,4 @@
 <div>
-    <span>{{ remainingMilliSeconds | async | date:'mm:ss'  }}</span>
+    <!-- <span>{{ remainingMilliSeconds | async | date:'mm:ss'  }}</span> -->
+    <span>{{ (time() * 1000) | date:'mm:ss'  }}</span>
 </div>

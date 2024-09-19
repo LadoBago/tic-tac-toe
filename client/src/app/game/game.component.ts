@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { BoardComponent } from '../board/board.component';
 import { Game } from './game.model';
 import { ClockComponent } from '../clock/clock.component';
+import { GameService } from './game.service';
 
 @Component({
   selector: 'app-game',
@@ -11,11 +12,13 @@ import { ClockComponent } from '../clock/clock.component';
   styleUrl: './game.component.css'
 })
 export class GameComponent {
-
-  @Input() public game!: Game;
   @Output() public finish: EventEmitter<void>;
 
-  constructor() {
+  get CurrentGame(): Game {
+    return this.gameService.game()!;
+  }
+
+  constructor(private gameService: GameService) {
     this.finish = new EventEmitter<void>();
   }
   onFinish() {

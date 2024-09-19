@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SquareComponent } from "../square/square.component";
+import { MoveTrackerService } from "../services/move-tracker.service"
 
 @Component({
   selector: 'app-board',
@@ -13,15 +14,13 @@ export class BoardComponent implements OnInit {
   size! : number;
 
   public position! : (boolean | undefined)[];
-  private nextMove : boolean;
   private boardIndexes! : number[];
 
-  constructor() { 
-    this.nextMove = true;
+  constructor(private moveTrackerService: MoveTrackerService) {
   }
 
-  public getNextMove() : boolean {
-    return this.nextMove;
+  private get NextMove() : boolean {
+    return this.moveTrackerService.IsPlayerXTurn;
   }
 
   ngOnInit(): void {
@@ -33,15 +32,15 @@ export class BoardComponent implements OnInit {
     return this.boardIndexes;
   }
 
-  public onMakeMove(data: {i: number, j: number}){
-    console.log('onMakeMove called');
+  public onMove(data: {i: number, j: number}){
+    console.log('onMove called');
     console.log(data);
     if (this.position[data.i * this.size + data.j] != undefined)
       return;
 
     console.log(this.position);
 
-    this.position[data.i * this.size + data.j] = this.nextMove;
-    this.nextMove = !this.nextMove;
+    this.position[data.i * this.size + data.j] = this.NextMove;
+    this.moveTrackerService.moveMade();
   }
 }

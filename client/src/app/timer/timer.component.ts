@@ -12,9 +12,9 @@ import { map, takeWhile, timer } from 'rxjs';
 export class TimerComponent {
   time = input.required<number>();
   
-  remainingMilliSeconds = timer(0, 1000)
-    .pipe(
-      map(x => (this.time() - x) * 1000),
-      takeWhile(x => x >= 0)
-    );
+  // remainingMilliSeconds = timer(0, 1000)
+  //   .pipe(
+  //     map(x => (this.time() - x) * 1000),
+  //     takeWhile(x => x >= 0)
+  //   );
 }
