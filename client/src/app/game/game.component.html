@@ -1,5 +1,5 @@
 <div class="game">
-    <app-clock [time]="this.CurrentGame.TimeControl" />
+    <app-clock [time]="this.CurrentGame.TimeControl" (timeExpired)="OnTimeExpired($event)" />
     <app-board [size]="this.CurrentGame.BoardSize"/>
     <section>
         <button (click)="onFinish()">Finish</button>

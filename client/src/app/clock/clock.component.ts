@@ -1,9 +1,7 @@
-import { Component, input, OnInit } from '@angular/core';
-import { map, takeWhile, timer } from 'rxjs';
+import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { AsyncPipe, DatePipe} from '@angular/common'
 import { TimerComponent } from "../timer/timer.component";
-import { ClockService } from './clock.service';
-import { MoveDataModel, MoveTrackerService } from '../services/move-tracker.service';
+import { ClockService, TimerExpiredDataModel } from './clock.service';
 
 @Component({
   selector: 'app-clock',
@@ -14,8 +12,10 @@ import { MoveDataModel, MoveTrackerService } from '../services/move-tracker.serv
 })
 export class ClockComponent implements OnInit {
   time = input.required<number>();
+  @Output() timeExpired = new EventEmitter<TimerExpiredDataModel>();
 
   constructor(private clockService: ClockService) {
+    clockService.OnTimeExpired.subscribe(this.OnTimeExpired);
   }
 
   ngOnInit(): void {
@@ -28,6 +28,10 @@ export class ClockComponent implements OnInit {
 
   get player0Time() : number {
     return this.clockService.player0Time();
+  }
+
+  OnTimeExpired(data: TimerExpiredDataModel) {
+    this.timeExpired.emit(data);
   }
 
 }

@@ -26,22 +26,18 @@ export class GameStarterComponent {
   }
 
   getTimeControlOptions() : number[]{
-    return timeControlOptions;
+    return timeControlOptions.map(i => i * 1000);
   }
 
   selectBoardSize(boardSize: number) {
     this.gameStarter.BoardSize = boardSize;
-    console.log ('Select boardSize ' + boardSize);
-    console.log(this.gameStarter);
   }
+
   selectTimeControl(timeControl: number) {
     this.gameStarter.TimeControl = timeControl;
-    console.log ('Select timeControl ' + timeControl);
-    console.log(this.gameStarter);
   }
+  
   onStartNewGame() {
-    console.log ('Start new game');
-    console.log(this.gameStarter);
     this.startNewGame.emit(this.gameStarter);
   }
 }

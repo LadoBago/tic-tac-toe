@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { MoveDataModel, MoveTrackerService } from '../services/move-tracker.service';
-import { interval, Subscription } from 'rxjs';
+import { MoveTrackerService } from '../services/move-tracker.service';
+import { interval, Observable, Subject, Subscription } from 'rxjs';
+
+export type TimerExpiredDataModel = { playerXTimeExpired: boolean };
 
 @Injectable({
   providedIn: 'root'
@@ -11,38 +13,52 @@ export class ClockService {
 
   private static dec(i: number): ((v: number) => number) { return (v) => v - i };
   private timerSubscribtion?: Subscription;
-
+  private timerExpiredSubject: Subject<TimerExpiredDataModel>
 
   constructor(private moveTrackerService: MoveTrackerService) {
-    this.moveTrackerService.OnMove.subscribe(this.onMove);
+    this.timerExpiredSubject = new Subject();
   }
 
+  get OnTimeExpired(): Observable<TimerExpiredDataModel> {
+    return this.timerExpiredSubject.asObservable();
+  }
   setInitialTime(initialTime: number) {
     this.playerXTime.set(initialTime);
     this.player0Time.set(initialTime);
   }
 
   start() {
-    this.timerSubscribtion = interval(1000).subscribe(v => {
+    const refreshInterval = 173;
+    this.timerSubscribtion = interval(refreshInterval).subscribe(v => {
       if (this.moveTrackerService.IsPlayerXTurn) {
-        this.playerXTime.update(ClockService.dec(1));
+        this.playerXTime.update(ClockService.dec(refreshInterval));
+        if (!this.checkTimer(this.playerXTime(), true)) {
+
+        }
       }
       else {
-        this.player0Time.update(ClockService.dec(1));
+        this.player0Time.update(ClockService.dec(refreshInterval));
+        if (!this.checkTimer(this.player0Time(), false)) {
+
+        }
       }
     });
   }
 
   finish() {
-    console.log("ClockService.finish")
     if (this.timerSubscribtion) {
-      console.log("ClockService.timerSubscribtion.unsubscribe")
       this.timerSubscribtion.unsubscribe();
     }
-
   }
 
-  onMove(data: MoveDataModel) {
+  private checkTimer(remainingTime: number, isPlayerX: boolean): boolean {
+    if (remainingTime <= 0) {
+      this.timerExpiredSubject.next({playerXTimeExpired: isPlayerX});
+      this.timerExpiredSubject.complete();
+      return false;
+    }
 
+    return true;
   }
+
 }

@@ -1,6 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, input } from '@angular/core';
-import { map, takeWhile, timer } from 'rxjs';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -12,9 +11,5 @@ import { map, takeWhile, timer } from 'rxjs';
 export class TimerComponent {
   time = input.required<number>();
   
-  // remainingMilliSeconds = timer(0, 1000)
-  //   .pipe(
-  //     map(x => (this.time() - x) * 1000),
-  //     takeWhile(x => x >= 0)
-  //   );
+  timerIsLessThenOneMinute = computed(() => this.time() < 60000);
 }

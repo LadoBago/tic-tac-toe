@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { SquareComponent } from "../square/square.component";
 import { MoveTrackerService } from "../services/move-tracker.service"
 
@@ -10,8 +10,7 @@ import { MoveTrackerService } from "../services/move-tracker.service"
   styleUrl: './board.component.css'
 })
 export class BoardComponent implements OnInit {
-  @Input()
-  size! : number;
+  size = input.required<number>();
 
   public position! : (boolean | undefined)[];
   private boardIndexes! : number[];
@@ -24,8 +23,8 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.position = Array<boolean | undefined>(this.size * this.size).fill(undefined);
-    this.boardIndexes = [...Array(this.size)].map((_, inx) => inx);
+    this.position = Array<boolean | undefined>(this.size() * this.size()).fill(undefined);
+    this.boardIndexes = [...Array(this.size())].map((_, inx) => inx);
   }
 
   public getBoardIndexes() {
@@ -33,14 +32,10 @@ export class BoardComponent implements OnInit {
   }
 
   public onMove(data: {i: number, j: number}){
-    console.log('onMove called');
-    console.log(data);
-    if (this.position[data.i * this.size + data.j] != undefined)
+    if (this.position[data.i * this.size() + data.j] != undefined)
       return;
 
-    console.log(this.position);
-
-    this.position[data.i * this.size + data.j] = this.NextMove;
+    this.position[data.i * this.size() + data.j] = this.NextMove;
     this.moveTrackerService.moveMade();
   }
 }

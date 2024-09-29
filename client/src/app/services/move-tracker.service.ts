@@ -24,6 +24,6 @@ export class MoveTrackerService {
 
   moveMade() {
     this.moveSubject.next({ payerXMadeMove: this.isPlayerXTurn() });
-    this.isPlayerXTurn.set(!this.isPlayerXTurn());
+    this.isPlayerXTurn.update(v => !v);
   }
 }

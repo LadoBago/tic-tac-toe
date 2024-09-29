@@ -3,6 +3,7 @@ import { BoardComponent } from '../board/board.component';
 import { Game } from './game.model';
 import { ClockComponent } from '../clock/clock.component';
 import { GameService } from './game.service';
+import { TimerExpiredDataModel } from '../clock/clock.service';
 
 @Component({
   selector: 'app-game',
@@ -22,6 +23,14 @@ export class GameComponent {
     this.finish = new EventEmitter<void>();
   }
   onFinish() {
-      this.finish.emit();
+      this.finishGame();
+  }
+
+  OnTimeExpired($event: TimerExpiredDataModel) {
+    this.finishGame();
+  }
+
+  private finishGame() {
+    this.finish.emit();
   }
 }

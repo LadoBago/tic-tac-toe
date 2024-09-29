@@ -26,7 +26,6 @@ export class AppComponent {
 
   onGameFinish() {
     this.gameService.finishGame();
-    console.log ('Finish game.');
   }
   onStartNewGame($event: GameStarterModel) {
     this.gameService.startNewGame($event);

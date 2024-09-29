@@ -32,12 +32,8 @@ export class SquareComponent {
   }
 
   onClick() {
-    console.log('square clicked');
-    console.log(this.value());
     if (this.value() !== undefined)
       return;
-
-    console.log('makeMove event emitted');
 
     this.moveMade.emit({i: this.indexI(), j: this.indexJ()});
   }
