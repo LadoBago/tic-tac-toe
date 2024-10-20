@@ -16,7 +16,7 @@ export class ClockService {
   private timerExpiredSubject: Subject<TimerExpiredDataModel>
 
   constructor(private moveTrackerService: MoveTrackerService) {
-    this.timerExpiredSubject = new Subject();
+    this.timerExpiredSubject = new Subject<TimerExpiredDataModel>();
   }
 
   get OnTimeExpired(): Observable<TimerExpiredDataModel> {
@@ -33,13 +33,13 @@ export class ClockService {
       if (this.moveTrackerService.IsPlayerXTurn) {
         this.playerXTime.update(ClockService.dec(refreshInterval));
         if (!this.checkTimer(this.playerXTime(), true)) {
-
+          this.finish();
         }
       }
       else {
         this.player0Time.update(ClockService.dec(refreshInterval));
         if (!this.checkTimer(this.player0Time(), false)) {
-
+          this.finish();
         }
       }
     });
@@ -54,7 +54,6 @@ export class ClockService {
   private checkTimer(remainingTime: number, isPlayerX: boolean): boolean {
     if (remainingTime <= 0) {
       this.timerExpiredSubject.next({playerXTimeExpired: isPlayerX});
-      this.timerExpiredSubject.complete();
       return false;
     }
 

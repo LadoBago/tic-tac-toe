@@ -26,7 +26,8 @@ export class GameComponent {
       this.finishGame();
   }
 
-  OnTimeExpired($event: TimerExpiredDataModel) {
+  OnTimeExpired(data: TimerExpiredDataModel) {
+    console.log(this);
     this.finishGame();
   }
 

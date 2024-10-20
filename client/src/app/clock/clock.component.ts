@@ -2,6 +2,7 @@ import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
 import { AsyncPipe, DatePipe} from '@angular/common'
 import { TimerComponent } from "../timer/timer.component";
 import { ClockService, TimerExpiredDataModel } from './clock.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -13,9 +14,10 @@ import { ClockService, TimerExpiredDataModel } from './clock.service';
 export class ClockComponent implements OnInit {
   time = input.required<number>();
   @Output() timeExpired = new EventEmitter<TimerExpiredDataModel>();
+  timeExpiredSubscription: Subscription;
 
   constructor(private clockService: ClockService) {
-    clockService.OnTimeExpired.subscribe(this.OnTimeExpired);
+    this.timeExpiredSubscription = clockService.OnTimeExpired.subscribe(this.OnTimeExpired2(this.timeExpired));
   }
 
   ngOnInit(): void {
@@ -31,7 +33,18 @@ export class ClockComponent implements OnInit {
   }
 
   OnTimeExpired(data: TimerExpiredDataModel) {
+    console.log('clockComponent: Time expired')
+    console.log(data);
+    console.log(this);
     this.timeExpired.emit(data);
+    this.timeExpiredSubscription.unsubscribe();
+  }
+
+  OnTimeExpired2(ee: EventEmitter<TimerExpiredDataModel>): (value: TimerExpiredDataModel) => void {
+    return (value: TimerExpiredDataModel) => {
+      ee.emit(value);
+      this.timeExpiredSubscription.unsubscribe();
+    }
   }
 
 }
