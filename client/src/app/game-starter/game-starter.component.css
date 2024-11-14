@@ -5,3 +5,6 @@ li {
     display: inline;
     margin-left: 5px;
 }
+button.btn-primary {
+    margin-right: 5px;
+}

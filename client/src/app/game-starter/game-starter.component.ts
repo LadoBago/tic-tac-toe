@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { boardSizeOptions, timeControlOptions, GameStarterModel } from './game-starter.model';
+import { boardSizeOptions, timeControlOptions, GameStarterModel, GameModes } from './game-starter.model';
 import { DatePipe } from '@angular/common';
+import { Game } from '../game/game.model';
 
 @Component({
   selector: 'app-game-starter',
@@ -12,6 +13,7 @@ import { DatePipe } from '@angular/common';
 export class GameStarterComponent {
   private gameStarter: GameStarterModel;
   @Output() startNewGame = new EventEmitter<GameStarterModel>();
+  GameModesEnum = GameModes;
 
   constructor() {
     this.gameStarter = new GameStarterModel();
@@ -36,8 +38,19 @@ export class GameStarterComponent {
   selectTimeControl(timeControl: number) {
     this.gameStarter.TimeControl = timeControl;
   }
-  
-  onStartNewGame() {
+
+  onCreateGameHuman() {
+    this.createGame(GameModes.Human);
+  }
+
+  onCreateGameBot() {
+    this.createGame(GameModes.Bot);
+  }
+
+  private createGame(gameMode: GameModes) {
+    this.gameStarter.GameMode = gameMode
     this.startNewGame.emit(this.gameStarter);
   }
+
+  
 }

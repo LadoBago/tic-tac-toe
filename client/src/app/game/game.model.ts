@@ -1,14 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
-import { GameStarterModel } from '../game-starter/game-starter.model';
+import { GameModes, GameStarterModel } from '../game-starter/game-starter.model';
 
 export class Game {
     private boardSize: number;
     private id?: string
     private timeControl: number;
+    private gameMode: GameModes;
 
     constructor(gameStarter: GameStarterModel ){
         this.boardSize = gameStarter.BoardSize
         this.timeControl = gameStarter.TimeControl;
+        this.gameMode = gameStarter.GameMode;
     }
 
     Start() {
@@ -45,4 +47,7 @@ export class Game {
         return this.id != undefined;
     }
 
+    get GameMode(): GameModes {
+        return this.gameMode
+    }
 }
