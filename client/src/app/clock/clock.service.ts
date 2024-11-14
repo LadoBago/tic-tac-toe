@@ -1,6 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { MoveTrackerService } from '../services/move-tracker.service';
-import { interval, Observable, Subject, Subscription } from 'rxjs';
+import { interval, Observable, Subject, Subscription, takeUntil } from 'rxjs';
 
 export type TimerExpiredDataModel = { playerXTimeExpired: boolean };
 
@@ -28,19 +28,15 @@ export class ClockService {
   }
 
   start() {
-    const refreshInterval = 173;
-    this.timerSubscribtion = interval(refreshInterval).subscribe(v => {
-      if (this.moveTrackerService.IsPlayerXTurn) {
-        this.playerXTime.update(ClockService.dec(refreshInterval));
-        if (!this.checkTimer(this.playerXTime(), true)) {
-          this.finish();
-        }
-      }
-      else {
-        this.player0Time.update(ClockService.dec(refreshInterval));
-        if (!this.checkTimer(this.player0Time(), false)) {
-          this.finish();
-        }
+    const refreshInterval = 73;
+    this.timerSubscribtion = interval(refreshInterval).pipe(takeUntil(this.timerExpiredSubject)).subscribe(v => {
+      let isPlayerX = this.moveTrackerService.IsPlayerXTurn;
+      let playerTime = isPlayerX? this.playerXTime : this.player0Time;
+      playerTime.update(ClockService.dec(refreshInterval));
+      
+      if (playerTime() <= 0) {
+        this.timerExpiredSubject.next({ playerXTimeExpired: isPlayerX });
+        this.finish()
       }
     });
   }
@@ -49,15 +45,6 @@ export class ClockService {
     if (this.timerSubscribtion) {
       this.timerSubscribtion.unsubscribe();
     }
-  }
-
-  private checkTimer(remainingTime: number, isPlayerX: boolean): boolean {
-    if (remainingTime <= 0) {
-      this.timerExpiredSubject.next({playerXTimeExpired: isPlayerX});
-      return false;
-    }
-
-    return true;
   }
 
 }

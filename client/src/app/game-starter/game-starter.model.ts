@@ -7,7 +7,7 @@ export class GameStarterModel {
 
     constructor(){
         this.boardSize = boardSizeOptions[0];
-        this.timeControl = timeControlOptions[0];
+        this.timeControl = timeControlOptions[1] * 1000;
     }
     
     set BoardSize(value: number) {

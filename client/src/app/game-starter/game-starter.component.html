@@ -1,15 +1,17 @@
 <nav>
-    <ul>
+    <span>Border Size:</span>
+    <ul class="no-bullets">
         @for (boardSize of getBoardSizeOptions(); track $index) {
-            <li><button (click)="selectBoardSize(boardSize)" class="btn btn-outline-dark" [class.active]="boardSize === this.GameStarter.BoardSize">Board Size {{boardSize}}x{{boardSize}}</button></li>
+            <li><button (click)="selectBoardSize(boardSize)" class="btn btn-outline-dark" [class.active]="boardSize === this.GameStarter.BoardSize">{{boardSize}}x{{boardSize}}</button></li>
         }
 
     </ul>
 </nav>
 <nav>
-    <ul>
+    <span>Time control:</span>
+    <ul class="no-bullets">
         @for (timeControl of getTimeControlOptions(); track $index) {
-        <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">Time control {{timeControl | date: 'mm:ss'}}</button></li>
+        <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">{{timeControl | date: 'mm:ss'}}</button></li>
         }  
     </ul>
 </nav>

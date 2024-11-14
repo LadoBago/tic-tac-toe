@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 const FirstMoveMakesPlayerX = true;
-export type MoveDataModel = { payerXMadeMove: boolean };
+export type MoveDataModel = { playerXMadeMove: boolean };
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class MoveTrackerService {
   }
 
   moveMade() {
-    this.moveSubject.next({ payerXMadeMove: this.isPlayerXTurn() });
+    this.moveSubject.next({ playerXMadeMove: this.isPlayerXTurn() });
     this.isPlayerXTurn.update(v => !v);
   }
 }

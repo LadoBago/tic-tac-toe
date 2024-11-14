@@ -21,11 +21,11 @@ export class GameStarterComponent {
     return this.gameStarter;
   }
 
-  getBoardSizeOptions() : number[]{
+  getBoardSizeOptions() : number[] {
     return boardSizeOptions;
   }
 
-  getTimeControlOptions() : number[]{
+  getTimeControlOptions() : number[] {
     return timeControlOptions.map(i => i * 1000);
   }
 
