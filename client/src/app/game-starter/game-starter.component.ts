@@ -1,21 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, NgModule, Output } from '@angular/core';
 import { boardSizeOptions, timeControlOptions, GameStarterModel, GameModes } from './game-starter.model';
 import { DatePipe } from '@angular/common';
-import { Game } from '../game/game.model';
+import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { Player } from '../game/player.model';
 
 @Component({
   selector: 'app-game-starter',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, FormsModule],
   templateUrl: './game-starter.component.html',
   styleUrl: './game-starter.component.css'
 })
 export class GameStarterComponent {
   private gameStarter: GameStarterModel;
-  @Output() startNewGame = new EventEmitter<GameStarterModel>();
-  GameModesEnum = GameModes;
+  @Output() gameCreated = new EventEmitter<GameStarterModel>();
 
-  constructor() {
+  constructor(private _userService: UserService) {
     this.gameStarter = new GameStarterModel();
   }
 
@@ -39,6 +40,10 @@ export class GameStarterComponent {
     this.gameStarter.TimeControl = timeControl;
   }
 
+  selectPlayerIsX(playerIsX: boolean | undefined) {
+    this.gameStarter.PlayerIsX = playerIsX;
+  }
+
   onCreateGameHuman() {
     this.createGame(GameModes.Human);
   }
@@ -49,8 +54,7 @@ export class GameStarterComponent {
 
   private createGame(gameMode: GameModes) {
     this.gameStarter.GameMode = gameMode
-    this.startNewGame.emit(this.gameStarter);
+    this._userService.setCurrentUser(Player.create(this.gameStarter.PlayerName));
+    this.gameCreated.emit(this.gameStarter);
   }
-
-  
 }

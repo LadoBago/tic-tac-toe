@@ -15,8 +15,8 @@ export class GameService {
 
   isCreated = computed(() => this.game() !== undefined);
 
-  startNewGame(gameStarter: GameStarterModel) {
-    this.game.set(new Game(gameStarter));
+  createGame(gameStarter: GameStarterModel) {
+    this.game.set(Game.create(gameStarter));
     this.clockService.start();
   }
 

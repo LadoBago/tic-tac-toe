@@ -1,7 +1,7 @@
 <main class="main">
   <div class="content">
   @if (!this.isCreated()) {
-    <app-game-starter (startNewGame)="onStartNewGame($event)"/>
+    <app-game-starter (gameCreated)="onGameCreated($event)"/>
   }
   @else  {
     <app-game (finish)="onGameFinish()" />

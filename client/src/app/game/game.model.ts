@@ -1,16 +1,29 @@
 import { v4 as uuidv4 } from 'uuid';
 import { GameModes, GameStarterModel } from '../game-starter/game-starter.model';
+import { Player } from './player.model';
 
 export class Game {
     private boardSize: number;
     private id?: string
     private timeControl: number;
     private gameMode: GameModes;
+    private playerX?: Player;
+    private player0?: Player;
 
-    constructor(gameStarter: GameStarterModel ){
+    private constructor(gameStarter: GameStarterModel){
         this.boardSize = gameStarter.BoardSize
         this.timeControl = gameStarter.TimeControl;
         this.gameMode = gameStarter.GameMode;
+        if(gameStarter.PlayerIsX) {
+            this.playerX = Player.create(gameStarter.PlayerName);
+        }
+        else {
+            this.player0 = Player.create(gameStarter.PlayerName);
+        }
+    }
+
+    static create(gameStarter: GameStarterModel) {
+        return new Game(gameStarter);
     }
 
     Start() {
@@ -21,16 +34,8 @@ export class Game {
         return;
     }
 
-    set BoardSize(value: number) {
-        this.boardSize = value;
-    }
-
     get BoardSize(): number {
         return this.boardSize;
-    }
-
-    set TimeControl(value: number) {
-        this.timeControl = value;
     }
 
     get TimeControl(): number {
@@ -38,12 +43,12 @@ export class Game {
     }
     get Id(): string {
         if (!this.id) {
-            throw new Error("The game is not started yet.");
+            throw new Error("The game is not created yet.");
         }
         return this.id;
     }
     
-    get IsStarted(): boolean {
+    get IsCreated(): boolean {
         return this.id != undefined;
     }
 

@@ -1,4 +1,12 @@
 <nav>
+    <div><span>X or 0:</span></div>
+    <ul class="no-bullets">
+        <li><button (click)="selectPlayerIsX(true)" class="btn btn-outline-dark" [class.active]="this.GameStarter.PlayerIsX !== undefined && this.GameStarter.PlayerIsX">Play with X</button></li>
+        <li><button (click)="selectPlayerIsX(false)" class="btn btn-outline-dark" [class.active]="this.GameStarter.PlayerIsX !== undefined && !this.GameStarter.PlayerIsX">Play with 0</button></li>
+        <li><button (click)="selectPlayerIsX(undefined)" class="btn btn-outline-dark" [class.active]="this.GameStarter.PlayerIsX === undefined">Play random</button></li>
+    </ul>
+</nav>
+<nav>
     <div><span>Border Size:</span></div>
     <ul class="no-bullets">
         @for (boardSize of getBoardSizeOptions(); track $index) {
@@ -11,9 +19,13 @@
     <ul class="no-bullets">
         @for (timeControl of getTimeControlOptions(); track $index) {
         <li><button (click)="selectTimeControl(timeControl)" class="btn btn-outline-dark" [class.active]="timeControl === this.GameStarter.TimeControl">{{timeControl | date: 'mm:ss'}}</button></li>
-        }  
+        }
     </ul>
 </nav>
-<button (click)="onCreateGameHuman()" class="btn btn-primary">Challenge a human being</button>
-<button (click)="onCreateGameBot()" class="btn btn-primary">Play the bot</button>
+<div>
+    <p>Your Name:</p>
+    <input placeholder="Enter your name" type="text" [(ngModel)]="this.GameStarter.PlayerName" />
+</div>
+<button (click)="onCreateGameHuman()" class="btn btn-primary" [disabled]="this.GameStarter.PlayerName.length < 2">Challenge a human being</button>
+<button (click)="onCreateGameBot()" class="btn btn-primary" [disabled]="this.GameStarter.PlayerName.length < 2">Play the bot</button>
  

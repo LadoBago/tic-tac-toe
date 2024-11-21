@@ -7,39 +7,57 @@ export enum GameModes {
 }
 
 export class GameStarterModel {
+    private playerName: string;
     private boardSize: number;
     private timeControl: number;
     private gameMode: GameModes;
-    public GameModesEnum = GameModes;
+    private playerIsX: boolean | undefined;
 
     constructor(){
         this.boardSize = boardSizeOptions[0];
         this.timeControl = timeControlOptions[1] * 1000;
         this.gameMode = GameModes.Human;
+        this.playerIsX = undefined;
+        this.playerName = "";
     }
     
-    set BoardSize(value: number) {
+    public set BoardSize(value: number) {
         this.boardSize = value;
     }
 
-    get BoardSize(): number {
+    public get BoardSize(): number {
         return this.boardSize;
     }
 
-    set TimeControl(value: number) {
+    public set TimeControl(value: number) {
         this.timeControl = value;
     }
 
-    get TimeControl(): number {
+    public get TimeControl(): number {
         return this.timeControl;
     }
 
-    set GameMode(value: GameModes) {
+    public set GameMode(value: GameModes) {
         this.gameMode = value;
     }
 
-    get GameMode(): GameModes {
+    public get GameMode(): GameModes {
         return this.gameMode;
+    }
+
+    public set PlayerIsX(value: boolean | undefined) {
+        this.playerIsX = value;
+    }
+
+    public get PlayerIsX(): boolean | undefined {
+        return this.playerIsX;
+    }
+
+    public get PlayerName(): string {
+        return this.playerName;
+    }
+    public set PlayerName(value: string) {
+        this.playerName = value;
     }
 
 }
